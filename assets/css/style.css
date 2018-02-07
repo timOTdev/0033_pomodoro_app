@@ -1,0 +1,15 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#pomodoro {
+  display: inline-block;
+  border: 1px solid red;
+  border-radius: 50%;
+  background: red;
+  /* height: 80%; */
+  width: 50%;
+  font-size: 3em;
+}
