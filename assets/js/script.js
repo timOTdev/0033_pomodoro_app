@@ -1,3 +1,4 @@
+// Id Selectors
 let pomodoroTop = document.getElementById("pomodoroTop");
 let pomodoroBottom = document.getElementById("pomodoroBottom");
 
@@ -17,6 +18,10 @@ let breakStartTime = breakCounter * 60; // 300
 sessionTime.append(sessionCounter + ":00");
 breakTime.append(breakCounter + ":00");
 
+// Sound
+let windchime = new Audio("./assets/sound/windchime.mp3");
+let piano = new Audio("./assets/sound/piano.mp3");
+
 // Click Listeners
 pomodoroTop.addEventListener("click", (e) => {
   e.preventDefault;
@@ -28,6 +33,7 @@ pomodoroTop.addEventListener("click", (e) => {
     if (timer === 0) {
       clearInterval(startSession);
       sessionTime = sessionTime.textContent = sessionCounter + ":00";
+      windchime.play();
     }
 
     minutes = Math.floor(timer / 60);
@@ -50,6 +56,7 @@ pomodoroBottom.addEventListener("click", (e) => {
     if (timer === 0) {
       clearInterval(startBreak);
       breakTime = breakTime.textContent = breakCounter + ":00";
+      piano.play();
     }
 
     minutes = Math.floor(timer / 60);
