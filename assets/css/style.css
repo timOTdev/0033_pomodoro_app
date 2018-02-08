@@ -5,6 +5,9 @@ html, body {
 }
 
 /* Main */
+#time {
+  display: block;
+}
 #pomodoro {
   display: inline-block;
   width: 50%;
@@ -13,38 +16,38 @@ html, body {
 
 #pomodoroTop {
   font-size: 1em;
-  background: red;
   height: 25%;
   width: 80%;
   margin: 0 auto;
 
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  border: 5px solid black;
 }
 
 #pomodoroTop:hover {
-  background:goldenrod;
   cursor: pointer;
-  border: 5px solid gray;
 }
 
 #pomodoroBottom {
   font-size: 1em;
-  background: white;
   height: 25%;
   width: 80%;
   margin: 0 auto;
   
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
-  border: 5px solid black;
 }
 
 #pomodoroBottom:hover {
-  background: goldenrod;
   cursor: pointer;
-  border: 5px solid gray;
+}
+
+#sessionIncrease,
+#sessionDecrease,
+#breakIncrease,
+#breakDecrease {
+  display: block;
+  white-space: nowrap;
 }
 
 #sessionIncrease:hover,
@@ -52,7 +55,7 @@ html, body {
 #breakIncrease:hover,
 #breakDecrease:hover {
   cursor: pointer;
-  color:white;
+  color:green;
 }
 
 /* Footer */
