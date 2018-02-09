@@ -4,6 +4,10 @@ html, body {
   text-align: center;
 }
 
+.hidden {
+  display: none;
+}
+
 /* Main */
 #time {
   display: block;
@@ -19,13 +23,10 @@ html, body {
   height: 25%;
   width: 80%;
   margin: 0 auto;
-
+  padding-bottom: 5%;
+  border: 1px solid black;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-}
-
-#pomodoroTop:hover {
-  cursor: pointer;
 }
 
 #pomodoroBottom {
@@ -33,21 +34,35 @@ html, body {
   height: 25%;
   width: 80%;
   margin: 0 auto;
-  
+  padding-top: 5%;
+  border: 1px solid black;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
 }
 
-#pomodoroBottom:hover {
+#sessionAction:hover,
+#breakAction:hover {
   cursor: pointer;
+}
+
+#sessionAction {
+  display: block;
+  max-height: 5%;
+  padding: 2%;
+  margin: 2% auto;
+  font-size: 1em;
 }
 
 #sessionIncrease,
 #sessionDecrease,
 #breakIncrease,
 #breakDecrease {
-  display: block;
-  white-space: nowrap;
+  display: inline-block;
+  /* border: 1px solid red; */
+  width:15%;
+  margin: 0 auto;
+  font-size: 1em;
+  border-radius: 50%;
 }
 
 #sessionIncrease:hover,

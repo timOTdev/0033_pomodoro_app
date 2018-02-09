@@ -1,76 +1,87 @@
-// Id Selectors
-let pomodoroTop = document.getElementById("pomodoroTop");
-let pomodoroBottom = document.getElementById("pomodoroBottom");
-
-let sessionIncrease = document.getElementById("sessionIncrease");
-let sessionTime = document.getElementById("sessionTime");
-let sessionDecrease = document.getElementById("sessionDecrease");
-
-let breakIncrease = document.getElementById("breakIncrease");
-let breakTime = document.getElementById("breakTime");
-let breakDecrease = document.getElementById("breakDecrease");
-
-let sessionCounter = 25;
-let breakCounter = 5;
-let sessionStartTime = sessionCounter * 60; // 1500
-let breakStartTime = breakCounter * 60; // 300
-
-sessionTime.append(sessionCounter + ":00");
-breakTime.append(breakCounter + ":00");
-
 // Sound
 let windchime = new Audio("./assets/sound/windchime.mp3");
 let piano = new Audio("./assets/sound/piano.mp3");
 
+// Id Selectors
+let sessionTime = document.getElementById("sessionTime");
+let sessionAction = document.getElementById("sessionAction");
+let sessionIncrease = document.getElementById("sessionIncrease");
+let sessionDecrease = document.getElementById("sessionDecrease");
+let startIcon = document.getElementById("startIcon");
+let pauseIcon = document.getElementById("pauseIcon");
+
+let breakTime = document.getElementById("breakTime");
+let breakAction = document.getElementById("breakAction");
+let breakIncrease = document.getElementById("breakIncrease");
+let breakDecrease = document.getElementById("breakDecrease");
+
+let sessionCounter = 25;
+let breakCounter = 1;
+sessionTime.append(sessionCounter + ":00");
+breakTime.append(breakCounter + ":00");
+
+let sessionStartTime = sessionCounter * 60; // 1500
+let sessionIsRunning = false;
+let sessionTimer;
+let startSessionTimer;
+
+let breakStartTime = breakCounter * 60; // 300
+
 // Click Listeners
-pomodoroTop.addEventListener("click", (e) => {
+sessionAction.addEventListener("click", (e) => {
   e.preventDefault;
-  let timer = sessionStartTime - 1;
+  sessionIsRunning ? pauseSession() : startSession(sessionStartTime);
+})
+
+let startSession = function(sessionStartTime) {
+  sessionIsRunning = true;
+  startIcon.classList.toggle("hidden");
+  pauseIcon.classList.toggle("hidden");
+  // startIcon.className = "hidden";
+  // pauseIcon.className = "";
+
+  let sessionTime = document.getElementById("sessionTime");
+  // sessionTimer = 10;
+  sessionTimer = sessionStartTime;
   let minutes;
   let seconds;
-
-  let startSession = setInterval(function() {
-    if (timer === 0) {
-      clearInterval(startSession);
+  
+  startSessionTimer = setInterval(function() {
+    if (sessionTimer === 0) {
+      console.log("Session timer is 0");
+      sessionIsRunning = false;
+      clearInterval(startSessionTimer);
       sessionTime = sessionTime.textContent = sessionCounter + ":00";
       windchime.play();
     }
 
-    minutes = Math.floor(timer / 60);
-    seconds = (timer % 60);
+    minutes = Math.floor(sessionTimer / 60);
+    seconds = (sessionTimer % 60);
     
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
     
-    timer--;
+    sessionTimer--;
     sessionTime.textContent = minutes + ":" + seconds;
+    console.log(sessionIsRunning, sessionStartTime, sessionTimer);
   }, 1000);
-})
+}
 
-pomodoroBottom.addEventListener("click", (e) => {
-  e.preventDefault;
-  let timer = breakStartTime - 1;
-  let minutes;
-  let seconds;
-  let startBreak = setInterval(function() {
-    if (timer === 0) {
-      clearInterval(startBreak);
-      breakTime = breakTime.textContent = breakCounter + ":00";
-      piano.play();
-    }
+let pauseSession = () => {
+  sessionIsRunning = false;
+  startIcon.classList.toggle("hidden");
+  pauseIcon.classList.toggle("hidden");
 
-    minutes = Math.floor(timer / 60);
-    seconds = (timer % 60);
-    
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-    timer--;
-    breakTime.textContent = minutes + ":" + seconds;
-  }, 1000);
-})
+  console.log(sessionTimer);
+  sessionStartTime = sessionTimer;
+  console.log(sessionStartTime);
+  clearInterval(startSessionTimer);
+
+  console.log(sessionIsRunning, sessionStartTime, sessionTimer);
+}
 
 sessionIncrease.addEventListener("click", (e) => {
+  let sessionTime = document.getElementById("sessionTime");
   e.preventDefault;
   e.stopPropagation();
   sessionCounter += 1;
@@ -80,6 +91,7 @@ sessionIncrease.addEventListener("click", (e) => {
 });
 
 sessionDecrease.addEventListener("click", (e) => {
+  let sessionTime = document.getElementById("sessionTime");
   e.preventDefault;
   e.stopPropagation();
   sessionCounter -= 1;
@@ -88,20 +100,46 @@ sessionDecrease.addEventListener("click", (e) => {
   console.log("Session time decreased to:" + sessionCounter + " minutes, " + sessionStartTime + " seconds");
 });
 
-breakIncrease.addEventListener("click", (e) => {
-  e.preventDefault;
-  e.stopPropagation();
-  breakCounter += 1;
-  breakStartTime = breakCounter * 60;
-  breakTime.textContent = breakCounter + ":00";
-  console.log("Break time increased to:" + breakCounter + " minutes, " + breakStartTime + " seconds");
-});
+// breakAction.addEventListener("click", (e) => {
+//   let breakTime = document.getElementById("breakTime");
+//   e.preventDefault;
+//   let timer = breakStartTime - 1;
+//   let minutes;
+//   let seconds;
+//   let startBreak = setInterval(function() {
+//     if (timer === 0) {
+//       clearInterval(startBreak);
+//       breakTime = breakTime.textContent = breakCounter + ":00";
+//       piano.play();
+//     }
 
-breakDecrease.addEventListener("click", (e) => {
-  e.preventDefault;
-  e.stopPropagation();
-  breakCounter -= 1;
-  breakStartTime = breakCounter * 60;
-  breakTime.textContent = breakCounter + ":00";
-  console.log("Break time decreased to:" + breakCounter + " minutes, " + breakStartTime + " seconds");
-});
+//     minutes = Math.floor(timer / 60);
+//     seconds = (timer % 60);
+    
+//     minutes = minutes < 10 ? "0" + minutes : minutes;
+//     seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+//     timer--;
+//     breakTime.textContent = minutes + ":" + seconds;
+//   }, 1000);
+// })
+
+// breakIncrease.addEventListener("click", (e) => {
+//   let breakTime = document.getElementById("breakTime");
+//   e.preventDefault;
+//   e.stopPropagation();
+//   breakCounter += 1;
+//   breakStartTime = breakCounter * 60;
+//   breakTime.textContent = breakCounter + ":00";
+//   console.log("Break time increased to:" + breakCounter + " minutes, " + breakStartTime + " seconds");
+// });
+
+// breakDecrease.addEventListener("click", (e) => {
+//   let breakTime = document.getElementById("breakTime");
+//   e.preventDefault;
+//   e.stopPropagation();
+//   breakCounter -= 1;
+//   breakStartTime = breakCounter * 60;
+//   breakTime.textContent = breakCounter + ":00";
+//   console.log("Break time decreased to:" + breakCounter + " minutes, " + breakStartTime + " seconds");
+// });

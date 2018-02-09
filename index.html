@@ -11,15 +11,21 @@
     
     <div id="pomodoro">
       <div id="pomodoroTop">
-        <span id="sessionIncrease">🢕</span>
+        <p>Session</p>
+        <button id="sessionDecrease">-</button>
         <span id="sessionTime"></span>
-        <span id="sessionDecrease">🢗</span>
+        <button id="sessionIncrease">+</button>
+        <!-- ⏹ -->
       </div>
-
+      
+      <button id="sessionAction"><span id="startIcon">▶</span><span id="pauseIcon" class="hidden">⏹</span></button>
+      
       <div id="pomodoroBottom">
-        <span id="breakIncrease">🢕</span>
+        <button id="breakDecrease">-</button>
         <span id="breakTime"></span>
-        <span id="breakDecrease">🢗</span>
+        <button id="breakIncrease">+</button>
+        <!-- ⏹ -->
+        <p>Break</p>
       </div>
     </div>
   </div>
@@ -29,7 +35,6 @@
 			<a href="http://timothyhoang.net/">Copyright © 2018 Timothy Hoang</a> 
 		</div>
 	</div>
-		
 	<script type="text/javascript" src="assets/js/script.js"></script>
 </body>
 </html>
