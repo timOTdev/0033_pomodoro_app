@@ -40,12 +40,11 @@ html, body {
   border-bottom-right-radius: 50%;
 }
 
-#sessionAction:hover,
-#breakAction:hover {
+#sessionActionButton:hover {
   cursor: pointer;
 }
 
-#sessionAction {
+#sessionActionButton {
   display: block;
   max-height: 5%;
   padding: 2%;
@@ -53,10 +52,10 @@ html, body {
   font-size: 1em;
 }
 
-#sessionIncrease,
-#sessionDecrease,
-#breakIncrease,
-#breakDecrease {
+#sessionIncreaseButton,
+#sessionDecreaseButton,
+#breakIncreaseButton,
+#breakDecreaseButton {
   display: inline-block;
   /* border: 1px solid red; */
   width:15%;
@@ -65,10 +64,10 @@ html, body {
   border-radius: 50%;
 }
 
-#sessionIncrease:hover,
-#sessionDecrease:hover,
-#breakIncrease:hover,
-#breakDecrease:hover {
+#sessionIncreaseButton:hover,
+#sessionDecreaseButton:hover,
+#breakIncreaseButton:hover,
+#breakDecreaseButton:hover {
   cursor: pointer;
   color:green;
 }

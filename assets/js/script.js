@@ -1,145 +1,123 @@
-// Sound
-let windchime = new Audio("./assets/sound/windchime.mp3");
-let piano = new Audio("./assets/sound/piano.mp3");
-
-// Id Selectors
-let sessionTime = document.getElementById("sessionTime");
-let sessionAction = document.getElementById("sessionAction");
-let sessionIncrease = document.getElementById("sessionIncrease");
-let sessionDecrease = document.getElementById("sessionDecrease");
+// DOM Selectors
+let sessionActionButton = document.getElementById("sessionActionButton");
+let sessionIncreaseButton = document.getElementById("sessionIncreaseButton");
+let sessionDecreaseButton = document.getElementById("sessionDecreaseButton");
+let breakIncreaseButton = document.getElementById("breakIncreaseButton");
+let breakDecreaseButton = document.getElementById("breakDecreaseButton");
 let startIcon = document.getElementById("startIcon");
 let pauseIcon = document.getElementById("pauseIcon");
 
-let breakTime = document.getElementById("breakTime");
-let breakAction = document.getElementById("breakAction");
-let breakIncrease = document.getElementById("breakIncrease");
-let breakDecrease = document.getElementById("breakDecrease");
+// Sound Imports
+let windchime = new Audio("./assets/sound/windchime.mp3");
+let piano = new Audio("./assets/sound/piano.mp3");
 
-let sessionCounter = 25;
-let breakCounter = 1;
-sessionTime.append(sessionCounter + ":00");
-breakTime.append(breakCounter + ":00");
-
-let sessionStartTime = sessionCounter * 60; // 1500
+// Clock Variables
+let sessionTime = 8;
+let breakTime = 5;
+let sessionTimeConverted = sessionTime * 60;
+let breakTimeConverted = breakTime * 60 - 1;
 let sessionIsRunning = false;
-let sessionTimer;
-let startSessionTimer;
-
-let breakStartTime = breakCounter * 60; // 300
+let startSession, pauseSession, startBreak, sessionIntervalFunction, breakIntervalFunction, sessionCounter, breakCounter;
+sessionDisplay.append(sessionTime + ":00");
+breakDisplay.append(breakTime + ":00");
 
 // Click Listeners
-sessionAction.addEventListener("click", (e) => {
+sessionActionButton.addEventListener("click", (e) => {
   e.preventDefault;
-  sessionIsRunning ? pauseSession() : startSession(sessionStartTime);
+  sessionIsRunning ? pauseSession() : startSession(sessionTimeConverted);
 })
 
-let startSession = function(sessionStartTime) {
+sessionIncreaseButton.addEventListener("click", (e) => {
+  e.preventDefault;
+  let sessionDisplay = document.getElementById("sessionDisplay");
+  sessionTime += 1;
+  sessionTimeConverted = sessionTime * 60;
+  sessionDisplay.textContent = sessionTime + ":00";
+});
+
+sessionDecreaseButton.addEventListener("click", (e) => {
+  e.preventDefault;
+  let sessionDisplay = document.getElementById("sessionDisplay");
+  (sessionTime > 1) ? sessionTime -= 1 : null;
+  sessionTimeConverted = sessionTime * 60;
+  sessionDisplay.textContent = sessionTime + ":00";
+});
+
+breakIncreaseButton.addEventListener("click", (e) => {
+  e.preventDefault;
+  let breakDisplay = document.getElementById("breakDisplay");
+  breakTime += 1;
+  breakTimeConverted = breakTime * 60;
+  breakDisplay.textContent = breakTime + ":00";
+});
+
+breakDecreaseButton.addEventListener("click", (e) => {
+  e.preventDefault;
+  let breakDisplay = document.getElementById("breakDisplay");
+  (breakTime > 1) ? breakTime -= 1 : null;
+  breakTimeConverted = breakTime * 60;
+  breakDisplay.textContent = breakTime + ":00";
+});
+
+// Core functions
+startSession = () => {
   sessionIsRunning = true;
   startIcon.classList.toggle("hidden");
   pauseIcon.classList.toggle("hidden");
-  // startIcon.className = "hidden";
-  // pauseIcon.className = "";
 
-  let sessionTime = document.getElementById("sessionTime");
-  // sessionTimer = 10;
-  sessionTimer = sessionStartTime;
-  let minutes;
-  let seconds;
-  
-  startSessionTimer = setInterval(function() {
-    if (sessionTimer === 0) {
-      console.log("Session timer is 0");
+  let sessionDisplay = document.getElementById("sessionDisplay");
+  let minutes, seconds;
+  sessionCounter = sessionTimeConverted - 1;
+
+  sessionIntervalFunction = setInterval(function() {
+    if (sessionCounter === 0) {
       sessionIsRunning = false;
-      clearInterval(startSessionTimer);
-      sessionTime = sessionTime.textContent = sessionCounter + ":00";
+      startIcon.classList.toggle("hidden");
+      pauseIcon.classList.toggle("hidden");
+      sessionTimeConverted = sessionTime * 60; 
+      sessionDisplay = sessionDisplay.textContent = sessionTime + ":00";
       windchime.play();
+      startBreak();
+      clearInterval(sessionIntervalFunction);
     }
 
-    minutes = Math.floor(sessionTimer / 60);
-    seconds = (sessionTimer % 60);
-    
+    minutes = Math.floor(sessionCounter / 60);
+    seconds = (sessionCounter % 60);
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-    sessionTimer--;
-    sessionTime.textContent = minutes + ":" + seconds;
-    console.log(sessionIsRunning, sessionStartTime, sessionTimer);
+
+    sessionCounter--;
+    sessionDisplay.textContent = minutes + ":" + seconds;
   }, 1000);
 }
 
-let pauseSession = () => {
+pauseSession = () => {
   sessionIsRunning = false;
   startIcon.classList.toggle("hidden");
   pauseIcon.classList.toggle("hidden");
-
-  console.log(sessionTimer);
-  sessionStartTime = sessionTimer;
-  console.log(sessionStartTime);
-  clearInterval(startSessionTimer);
-
-  console.log(sessionIsRunning, sessionStartTime, sessionTimer);
+  sessionTimeConverted = sessionCounter + 1;
+  clearInterval(sessionIntervalFunction);
 }
 
-sessionIncrease.addEventListener("click", (e) => {
-  let sessionTime = document.getElementById("sessionTime");
-  e.preventDefault;
-  e.stopPropagation();
-  sessionCounter += 1;
-  sessionStartTime = sessionCounter * 60;
-  sessionTime.textContent = sessionCounter + ":00";
-  console.log("Session time increased to:" + sessionCounter + " minutes, " + sessionStartTime + " seconds");
-});
+startBreak = () => {
+  let breakDisplay = document.getElementById("breakDisplay");
+  let minutes, seconds;
+  breakCounter = breakTimeConverted - 1;
 
-sessionDecrease.addEventListener("click", (e) => {
-  let sessionTime = document.getElementById("sessionTime");
-  e.preventDefault;
-  e.stopPropagation();
-  sessionCounter -= 1;
-  sessionStartTime = sessionCounter * 60;
-  sessionTime.textContent = sessionCounter + ":00";
-  console.log("Session time decreased to:" + sessionCounter + " minutes, " + sessionStartTime + " seconds");
-});
+  breakIntervalFunction = setInterval(function() {
+    if (breakCounter === 0) {
+      breakTimeConverted = breakTime * 60; 
+      breakDisplay = breakDisplay.textContent = breakTime + ":00";
+      piano.play();
+      clearInterval(breakIntervalFunction);
+    }
 
-// breakAction.addEventListener("click", (e) => {
-//   let breakTime = document.getElementById("breakTime");
-//   e.preventDefault;
-//   let timer = breakStartTime - 1;
-//   let minutes;
-//   let seconds;
-//   let startBreak = setInterval(function() {
-//     if (timer === 0) {
-//       clearInterval(startBreak);
-//       breakTime = breakTime.textContent = breakCounter + ":00";
-//       piano.play();
-//     }
-
-//     minutes = Math.floor(timer / 60);
-//     seconds = (timer % 60);
+    minutes = Math.floor(breakCounter / 60);
+    seconds = (breakCounter % 60);
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
     
-//     minutes = minutes < 10 ? "0" + minutes : minutes;
-//     seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-//     timer--;
-//     breakTime.textContent = minutes + ":" + seconds;
-//   }, 1000);
-// })
-
-// breakIncrease.addEventListener("click", (e) => {
-//   let breakTime = document.getElementById("breakTime");
-//   e.preventDefault;
-//   e.stopPropagation();
-//   breakCounter += 1;
-//   breakStartTime = breakCounter * 60;
-//   breakTime.textContent = breakCounter + ":00";
-//   console.log("Break time increased to:" + breakCounter + " minutes, " + breakStartTime + " seconds");
-// });
-
-// breakDecrease.addEventListener("click", (e) => {
-//   let breakTime = document.getElementById("breakTime");
-//   e.preventDefault;
-//   e.stopPropagation();
-//   breakCounter -= 1;
-//   breakStartTime = breakCounter * 60;
-//   breakTime.textContent = breakCounter + ":00";
-//   console.log("Break time decreased to:" + breakCounter + " minutes, " + breakStartTime + " seconds");
-// });
+    breakCounter--;
+    breakDisplay.textContent = minutes + ":" + seconds;
+  }, 1000);
+}
