@@ -17,7 +17,7 @@ p {
 }
 
 hr {
-  overflow: visible; /* For IE */
+  overflow: visible;
   padding: 0;
   border: none;
   border-top: medium double white;
