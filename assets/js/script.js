@@ -12,11 +12,12 @@ let windchime = new Audio("./assets/sound/windchime.mp3");
 let piano = new Audio("./assets/sound/piano.mp3");
 
 // Clock Variables
-let sessionTime = 8;
+let sessionTime = .1;
 let breakTime = 5;
 let sessionTimeConverted = sessionTime * 60;
 let breakTimeConverted = breakTime * 60 - 1;
 let sessionIsRunning = false;
+let breakIsRunning = false;
 let startSession, pauseSession, startBreak, sessionIntervalFunction, breakIntervalFunction, sessionCounter, breakCounter;
 sessionDisplay.append(sessionTime + ":00");
 breakDisplay.append(breakTime + ":00");
@@ -59,6 +60,38 @@ breakDecreaseButton.addEventListener("click", (e) => {
   breakDisplay.textContent = breakTime + ":00";
 });
 
+document.addEventListener('keyup', (event) => {
+  switch(event.code) {
+    case "Space":
+      sessionIsRunning ? pauseSession() : startSession(sessionTimeConverted);
+      break;
+    case "ArrowUp":
+      // let sessionDisplay = document.getElementById("sessionDisplay");
+      sessionTime += 1;
+      sessionTimeConverted = sessionTime * 60;
+      sessionDisplay.textContent = sessionTime + ":00";
+      break;
+    case "ArrowDown":
+      // let sessionDisplay = document.getElementById("sessionDisplay");
+      (sessionTime > 1) ? sessionTime -= 1 : null;
+      sessionTimeConverted = sessionTime * 60;
+      sessionDisplay.textContent = sessionTime + ":00";
+      break;
+    case "ArrowLeft":
+      // let breakDisplay = document.getElementById("breakDisplay");
+      (breakTime > 1) ? breakTime -= 1 : null;
+      breakTimeConverted = breakTime * 60;
+      breakDisplay.textContent = breakTime + ":00";
+      break;
+    case "ArrowRight":
+      // let breakDisplay = document.getElementById("breakDisplay");
+      breakTime += 1;
+      breakTimeConverted = breakTime * 60;
+      breakDisplay.textContent = breakTime + ":00";
+      break;
+  }
+});
+
 // Core functions
 startSession = () => {
   sessionIsRunning = true;
@@ -68,10 +101,21 @@ startSession = () => {
   let sessionDisplay = document.getElementById("sessionDisplay");
   let minutes, seconds;
   sessionCounter = sessionTimeConverted - 1;
+  
+
+  // let sessionDisplay = document.getElementById("sessionDisplay");
+  let breakDisplay = document.getElementById("breakDisplay");
+  // let minutes, seconds;
+  // sessionisRunning = true;
+  breakIsRunning = false;
+  breakCounter = breakTimeConverted - 1;
+  sessionIsRunning? sessionDisplay.classList.add("large") : sessionDisplay.classList.remove("large");
+  breakIsRunning ? breakDisplay.classList.add("large") : breakDisplay.classList.remove("large");
 
   sessionIntervalFunction = setInterval(function() {
     if (sessionCounter === 0) {
       sessionIsRunning = false;
+      sessionDisplay.classList.add("large");
       startIcon.classList.toggle("hidden");
       pauseIcon.classList.toggle("hidden");
       sessionTimeConverted = sessionTime * 60; 
@@ -100,12 +144,19 @@ pauseSession = () => {
 }
 
 startBreak = () => {
+  let sessionDisplay = document.getElementById("sessionDisplay");
   let breakDisplay = document.getElementById("breakDisplay");
   let minutes, seconds;
+  sessionisRunning = false;
+  breakIsRunning = true;
   breakCounter = breakTimeConverted - 1;
+  sessionIsRunning? sessionDisplay.classList.add("large") : sessionDisplay.classList.remove("large");
+  breakIsRunning ? breakDisplay.classList.add("large") : breakDisplay.classList.remove("large");
 
   breakIntervalFunction = setInterval(function() {
     if (breakCounter === 0) {
+      breakIsRunning = false;
+      breakIsRunning ? breakDisplay.classList.add("large") : breakDisplay.classList.remove("large");
       breakTimeConverted = breakTime * 60; 
       breakDisplay = breakDisplay.textContent = breakTime + ":00";
       piano.play();

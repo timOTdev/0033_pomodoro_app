@@ -3,38 +3,44 @@
 <head>
 	<title>Phenomenal Pomodoro App by Timothy Hoang</title>
 	<!-- Local Files -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Cabin|Rubik" rel="stylesheet">
 </head>
 <body>	
 	<div id="main">
-    <h1>Phenomenal Pomodoro App</h1>
-    
+    <div id="introduction">
+      <h1>Phenomenal Pomodoro App</h1>
+      <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. <br /> The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks.</p>
+      <p>Use Spacebar to start/pause, up/down arrows to adjust session time, and left/right arrow to adjust break time.</p>
+    </div>
+
     <div id="pomodoro">
       <div id="pomodoroTop">
-        <p>Session</p>
-        <button id="sessionDecreaseButton">-</button>
+        <span id="sessionDecreaseButton">-</span>
         <span id="sessionDisplay"></span>
-        <button id="sessionIncreaseButton">+</button>
-        <!-- ⏹ -->
+        <span id="sessionIncreaseButton">+</span>
       </div>
       
-      <button id="sessionActionButton"><span id="startIcon">▶</span><span id="pauseIcon" class="hidden">⏹</span></button>
+      <hr />
       
       <div id="pomodoroBottom">
-        <button id="breakDecreaseButton">-</button>
+        <span id="breakDecreaseButton">-</span>
         <span id="breakDisplay"></span>
-        <button id="breakIncreaseButton">+</button>
-        <!-- ⏹ -->
-        <p>Break</p>
+        <span id="breakIncreaseButton">+</span>
+      </div>
+      
+      <div id="sessionActionButton">
+        <span id="startIcon">▶</span>
+        <span id="pauseIcon" class="hidden">⏹</span>
       </div>
     </div>
+    
+    <div>
+        <a id="footer" href="http://timothyhoang.net/">Copyright © 2018 Timothy Hoang</a> 
+      </div>
   </div>
 
-	<div class="footer">
-		<div>
-			<a href="http://timothyhoang.net/">Copyright © 2018 Timothy Hoang</a> 
-		</div>
-	</div>
 	<script type="text/javascript" src="assets/js/script.js"></script>
 </body>
 </html>
