@@ -12,8 +12,8 @@ let windchime = new Audio("./assets/sound/windchime.mp3");
 let piano = new Audio("./assets/sound/piano.mp3");
 
 // Clock Variables
-let sessionTime = 1;
-let breakTime = 1;
+let sessionTime = 25;
+let breakTime = 5;
 let sessionTimeConverted = sessionTime * 60;
 let breakTimeConverted = breakTime * 60 - 1;
 let sessionIsRunning = false;
