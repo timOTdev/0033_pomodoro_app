@@ -2,7 +2,16 @@
 
 <figure><img src="./readme/phenomenal-pomodoro-app.png" alt="The Phenomenal Pomodoro App" style="width: 60%; display: block; margin-left: auto; margin-right: auto;"/></figure>
 
-<!-- Start here -->
+## To view this app online
+- To view deployed app, visit: https://timh1203.github.io/pomodoro-app/
+
+## To edit the source code
+- Github Repo: https://github.com/timh1203/pomodoro-app
+1. Have NPM and NodeJS installed on your computer
+2. Navigate to the directory of choice and type `git clone https://github.com/timh1203/pomodoro-app`
+3. Alternatively, you can also fork the repo and clone it (no future updates planned)
+4. Open up your favorite editor and have fun!
+
 ## About
 - The Pomodoro App is a basic app based on the Pomodoro Technique by Francesco Cirillo
 - The app keeps track of your work and break intervals, usually 25 minutes of work followed by 5 minutes of break
@@ -41,16 +50,7 @@
 - HTML
 - CSS
 - JavaScript
-
-## To view this app online
-- To view deployed app, visit: https://timh1203.github.io/pomodoro-app/
-
-## To edit the source code
-- Github Repo: https://github.com/timh1203/pomodoro-app
-1. Have NPM and NodeJS installed on your computer
-2. Navigate to the directory of choice and type `git clone https://github.com/timh1203/pomodoro-app`
-3. Alternatively, you can also fork the repo and clone it (no future updates planned)
-4. Open up your favorite editor and have fun!
+- Sound effects from [FreeSound](https://freesound.org/)
 
 ## More pictures
 ### Break timer Step
