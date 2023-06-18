@@ -1,4 +1,4 @@
-# The Phenomenal Pomodoro App by Timothy Hoang
+# 0033_pomodoro_app
 
 <figure><img src="./readme/phenomenal-pomodoro-app.png" alt="The Phenomenal Pomodoro App" style="width: 60%; display: block; margin-left: auto; margin-right: auto;"/></figure>
 
